@@ -1,18 +1,30 @@
 class VisitCounter
   def initialize
-    @ips = Hash.new
+    @paths = Hash.new
   end
 
-  def update(url, ip)
-    @ips[ip] = Hash.new
-    @ips[ip][url] = 1
-  end
+  def update(path, ip)
+    @paths[path] = Hash.new unless @paths.key? path
+    @paths[path][ip] = 0 unless @paths[path].key? ip
+    @paths[path][ip] += 1
+  end 
   
   def visits
-    return @ips.empty? ? 0 : 1
+    count_visits false
   end
 
   def unique_visits
-    return @ips.empty? ? 0 : 1    
+    count_visits true
+  end
+
+ private
+  def count_visits(count_unique)
+    count = 0
+    @paths.each do |path, ip|
+      ip.each do |ip_addr, visits|
+ 	count_unique == true ? count += 1 : count += visits 
+      end
+    end
+    count
   end
 end
