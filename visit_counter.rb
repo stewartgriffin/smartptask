@@ -17,6 +17,10 @@ class VisitCounter
     count_visits true
   end
 
+  def paths
+    @paths
+  end
+
  private
   def count_visits(count_unique)
     count = 0

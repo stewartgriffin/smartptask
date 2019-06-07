@@ -51,4 +51,13 @@ class VisitCounterTest < Minitest::Test
     assert_equal 11, @counter.visits
     assert_equal 4, @counter.unique_visits
   end
+
+  def test_pages_return
+    2.times do @counter.update("/path", "0.0.0.0") end
+    2.times do @counter.update("/path2", "0.0.0.0") end
+    3.times do @counter.update("/path", "1.1.1.1") end
+    4.times do @counter.update("/path", "2.2.2.2") end
+    result = {"/path"=>{"0.0.0.0"=>2, "1.1.1.1"=>3, "2.2.2.2"=>4}, "/path2"=>{"0.0.0.0"=>2}}
+    assert_equal result, @counter.paths
+  end
 end
