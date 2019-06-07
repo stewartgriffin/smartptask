@@ -18,12 +18,12 @@ class Parser
     output = String.new
     sorted = @counter.paths.sort_by {|k, v| 
                          result = 0
-			 v.each {|kk, vv|
-                                result += vv
-                                }
+			 v.each {|kk, vv| result += vv}
                         -result}
     sorted.each do |path, ip|
-	output += path.to_s + "\n"
+	entries = 0
+	ip.each {|k, v|	entries += v}
+	output += path.to_s + " " + entries.to_s + "\n"
     end
     output
   end
@@ -32,12 +32,10 @@ class Parser
     output = String.new
     sorted = @counter.paths.sort_by {|k, v|  
 			result = 0
-			v.each {|kk, vv|
-				result += 1
-				}
+			v.each {|kk, vv|result += 1}
 			-result} 
     sorted.each do |path, ip|
-        output += path.to_s + "\n"
+        output += path.to_s + " " + ip.count.to_s + "\n"
     end
     output
   end

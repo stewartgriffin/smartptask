@@ -29,10 +29,10 @@ class ParserTest < Minitest::Test
   end
 
   def test_return_pages_view_wise_most_to_least
-   expected = "/index
-/help_page/1
-/contact
-/index1
+   expected = "/index 7
+/help_page/1 5
+/contact 4
+/index1 1
 "
      
    assert_equal expected, @parser.pages_most_viewed
@@ -40,10 +40,10 @@ class ParserTest < Minitest::Test
   end
 
   def test_return_pages_unique_view_wise_most_to_least
-    expected = "/help_page/1
-/contact
-/index
-/index1
+    expected = "/help_page/1 5
+/contact 3
+/index 1
+/index1 1
 "
     assert_equal expected, @parser.pages_most_unique_viewed
   end
